@@ -25,8 +25,9 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-app.post('/users', verifyToken, (req, res) => {
-  res.send('Received HTTP Get');
+app.post('/users', verifyToken, async (req, res) => {
+  const authData = await jwt.verify(req.token, 'secretkey');
+  res.json({ message: 'Received HTTP Get', authData });
 });
 
 app.post('/user/login', async (req, res) => {
