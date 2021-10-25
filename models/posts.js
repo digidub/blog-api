@@ -9,3 +9,7 @@ const PostSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   published: { type: Boolean, default: false },
 });
+
+const Post = mongoose.model('Post', PostSchema);
+
+export default Post;
