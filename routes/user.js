@@ -3,8 +3,8 @@ const router = Router();
 import { verifyToken } from '../verifyToken';
 import jwt from 'jsonwebtoken';
 
-router.post('/', verifyToken, async (req, res) => {
-  const authData = await jwt.verify(req.token, 'secretkey');
+router.post('/', verifyToken, (req, res) => {
+  const authData = jwt.verify(req.token, 'secretkey');
   res.json({ message: 'Received HTTP Get', authData });
 });
 
