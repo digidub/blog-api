@@ -8,3 +8,7 @@ const CommentSchema = new Schema({
   datePosted: { type: Date, required: true, default: Date.now },
   post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
 });
+
+const Comment = mongoose.model('Comment', CommentSchema);
+
+export default Comment;
