@@ -1,4 +1,5 @@
 import Post from '../models/posts';
+import User from '../models/users';
 
 export const get = async (req, res) => {
   const posts = await Post.find({}, 'title body datePosted author')
@@ -10,10 +11,13 @@ export const get = async (req, res) => {
 };
 
 export const post = async (req, res) => {
+  console.log(req.body.author);
+  const author = await User.findOne({ username: req.body.author });
+
   const newPost = new Post({
     title: req.body.title,
     body: req.body.body,
-    author: req.body.author,
+    author: author._id,
   });
   await newPost.save();
   res.json(newPost);
