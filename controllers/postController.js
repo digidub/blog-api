@@ -10,6 +10,11 @@ export const get = async (req, res) => {
   res.json({ posts });
 };
 
+export const getID = async (req, res) => {
+  const post = await Post.findById(req.params.postID);
+  res.json({ post });
+};
+
 export const post = async (req, res) => {
   console.log(req.body.author);
   const author = await User.findOne({ username: req.body.author });
