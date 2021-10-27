@@ -16,7 +16,6 @@ export const getID = async (req, res) => {
 };
 
 export const post = async (req, res) => {
-  console.log(req.body.author);
   const author = await User.findOne({ username: req.body.author });
 
   const newPost = new Post({
@@ -26,4 +25,21 @@ export const post = async (req, res) => {
   });
   await newPost.save();
   res.json(newPost);
+};
+
+export const update = async (req, res) => {
+  const post = await Post.findById(req.params.postID);
+  post.title = req.body.title;
+  post.body = req.body.body;
+  post.dateEdited = Date.now();
+  post.save();
+  res.json({ updated: post });
+};
+
+export const remove = async (req, res) => {
+  const post = await Post.findById(req.params.postID);
+  await Post.findByIdAndDelete(post._id, (err) => {
+    if (err) res.json(err);
+    res.json({ deleted: post });
+  });
 };
