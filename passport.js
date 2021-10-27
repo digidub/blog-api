@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/users';
@@ -27,7 +28,7 @@ export const authLocal = passport.authenticate('local', {
 
 const jwtOpts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'secret_sauce',
+  secretOrKey: process.env.JWT_SECRET,
 };
 
 const jwtStrategy = new JWTStrategy(jwtOpts, async (payload, done) => {
