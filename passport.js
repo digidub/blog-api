@@ -2,6 +2,7 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/users';
 import bcrypt from 'bcryptjs';
+import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 
 passport.use(
   new LocalStrategy((username, password, done) => {
@@ -23,3 +24,24 @@ passport.use(
 export const authLocal = passport.authenticate('local', {
   session: false,
 });
+
+const jwtOpts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: 'secret_sauce',
+};
+
+const jwtStrategy = new JWTStrategy(jwtOpts, async (payload, done) => {
+  try {
+    const user = await User.findById(payload.user._id);
+    if (!user) {
+      return done(null, false);
+    }
+    return done(null, user);
+  } catch (e) {
+    return done(e, false);
+  }
+});
+
+passport.use(jwtStrategy);
+
+export const authJwt = passport.authenticate('jwt', { session: false });
