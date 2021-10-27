@@ -19,5 +19,6 @@ app.use(passport.initialize());
 
 app.use('/auth', routes.auth);
 app.use('/posts', routes.post);
+app.use('/posts/:postID/comments', routes.comment);
 
 app.listen(3000, () => console.log('App listening on port 3000'));
