@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 
-app.use('/users', routes.user);
+app.use('/auth', routes.auth);
 app.use('/posts', routes.post);
 
 app.listen(3000, () => console.log('App listening on port 3000'));
