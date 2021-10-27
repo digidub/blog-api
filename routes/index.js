@@ -1,9 +1,9 @@
 import post from './post';
-import user from './user';
+import auth from './auth';
 import comment from './comment';
 
 export default {
   post,
-  user,
+  auth,
   comment,
 };
