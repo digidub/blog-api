@@ -27,7 +27,17 @@ export const authLocal = passport.authenticate('local', {
 });
 
 const jwtOpts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromExtractors([
+    ExtractJwt.fromAuthHeaderAsBearerToken(),
+    function cookieExtractor(req) {
+      let token = null;
+      if (req && req.cookies) {
+        token = req.cookies['token'];
+        console.log(token);
+      }
+      return token;
+    },
+  ]),
   secretOrKey: process.env.JWT_SECRET,
 };
 
