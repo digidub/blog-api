@@ -16,8 +16,7 @@ export const getID = async (req, res) => {
 };
 
 export const post = async (req, res) => {
-  const author = await User.findOne({ username: req.body.author });
-
+  const author = await User.findOne({ username: req.user.username });
   const newPost = new Post({
     title: req.body.title,
     body: req.body.body,
