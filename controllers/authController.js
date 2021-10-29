@@ -23,5 +23,6 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   const user = req.user;
   const token = jwt.sign({ user }, process.env.JWT_SECRET);
+  res.cookie('token', token, { httpOnly: true });
   return res.json({ user, token });
 };
