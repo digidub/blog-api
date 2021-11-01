@@ -1,11 +1,14 @@
 import Comment from '../models/comments';
 import { body, validationResult } from 'express-validator';
 
-export const get = async (req, res, next) => {
-  const postID = req.params.postID;
-  console.log(req.params);
-  const comments = await Comment.find({ post: postID });
-  res.json(comments);
+export const get = async (req, res) => {
+  try {
+    const postID = req.params.postID;
+    const comments = await Comment.find({ post: postID });
+    res.json(comments);
+  } catch (err) {
+    res.json(err);
+  }
 };
 
 export const post = [
