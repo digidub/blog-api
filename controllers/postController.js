@@ -3,7 +3,7 @@ import User from '../models/users';
 
 export const get = async (req, res) => {
   try {
-    const posts = await Post.find({}, 'title body datePosted author')
+    const posts = await Post.find({}, 'title body datePosted author published')
       .sort({
         datePosted: -1,
       })
