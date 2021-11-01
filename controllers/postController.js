@@ -52,13 +52,8 @@ export const update = async (req, res) => {
 };
 
 export const remove = async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.postID);
-  } catch (err) {
-    res.json(err);
-  }
-  await Post.findByIdAndDelete(post._id, (err) => {
+  Post.findByIdAndDelete(req.params.postID, (err) => {
     if (err) res.json(err);
-    res.json({ deleted: post });
+    res.json({ 'deleted post': req.params.postID });
   });
 };
