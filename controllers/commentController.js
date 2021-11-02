@@ -33,3 +33,10 @@ export const post = [
     }
   },
 ];
+
+export const remove = async (req, res) => {
+  Comment.findByIdAndDelete(req.params.commentID, (err) => {
+    if (err) res.json(err);
+    res.json({ 'deleted comment': req.params.commentID });
+  });
+};
