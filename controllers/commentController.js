@@ -35,6 +35,8 @@ export const post = [
 ];
 
 export const remove = async (req, res) => {
+  console.log(req.params);
+  if (!req.params.commentID) return res.json('no comment ID supplied');
   Comment.findByIdAndDelete(req.params.commentID, (err) => {
     if (err) res.json(err);
     res.json({ 'deleted comment': req.params.commentID });
