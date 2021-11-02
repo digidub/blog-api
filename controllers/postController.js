@@ -41,10 +41,10 @@ export const post = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const post = await Post.findById(req.params.postID);
-    post.title = req.body.title;
-    post.body = req.body.body;
+    post.title = req.body.title ? req.body.title : post.title;
+    post.body = req.body.body ? req.body.body : post.body;
     post.dateEdited = Date.now();
-    post.published = req.body.published;
+    post.published = req.body.published ? req.body.published : post.published;
     post.save();
     res.json({ updated: post });
   } catch (err) {
