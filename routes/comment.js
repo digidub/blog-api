@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { get, post } from '../controllers/commentController';
+import { get, post, remove } from '../controllers/commentController';
 const router = Router({ mergeParams: true });
 import { authJwt } from '../passport';
 
