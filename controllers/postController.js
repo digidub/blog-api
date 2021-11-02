@@ -44,6 +44,7 @@ export const update = async (req, res) => {
     post.title = req.body.title;
     post.body = req.body.body;
     post.dateEdited = Date.now();
+    post.published = req.body.published;
     post.save();
     res.json({ updated: post });
   } catch (err) {
