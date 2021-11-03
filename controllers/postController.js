@@ -34,7 +34,7 @@ export const post = async (req, res) => {
     await newPost.save();
     res.json(newPost);
   } catch (err) {
-    res.json(err);
+    res.status(400).json(err);
   }
 };
 
@@ -48,7 +48,7 @@ export const update = async (req, res) => {
     post.save();
     res.json({ updated: post });
   } catch (err) {
-    res.json(err);
+    res.status(400).send(err);
   }
 };
 
