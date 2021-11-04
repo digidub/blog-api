@@ -8,7 +8,7 @@ export const get = async (req, res) => {
         datePosted: -1,
       })
       .populate('author', 'username');
-    res.json({ posts });
+    res.json(posts);
   } catch (err) {
     res.json(err);
   }
@@ -17,7 +17,7 @@ export const get = async (req, res) => {
 export const getID = async (req, res) => {
   try {
     const post = await Post.findById(req.params.postID);
-    res.json({ post });
+    res.json(post);
   } catch (err) {
     res.json(err);
   }
@@ -51,7 +51,7 @@ export const update = async (req, res) => {
       ? req.body.published
       : existingPost.published;
     existingPost.save();
-    res.json({ updated: existingPost });
+    res.json(existingPost);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -60,6 +60,6 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   Post.findByIdAndDelete(req.params.postID, (err) => {
     if (err) res.json(err);
-    res.json({ 'deleted post': req.params.postID });
+    res.json(req.params.postID);
   });
 };
