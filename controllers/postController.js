@@ -40,13 +40,18 @@ export const post = async (req, res) => {
 
 export const update = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.postID);
-    post.title = req.body.title ? req.body.title : post.title;
-    post.body = req.body.body ? req.body.body : post.body;
-    post.dateEdited = Date.now();
-    post.published = req.body.published ? req.body.published : post.published;
-    post.save();
-    res.json({ updated: post });
+    const existingPost = await Post.findById(req.params.postID);
+    if (!existingPost) {
+      return post(req, res);
+    }
+    existingPost.title = req.body.title ? req.body.title : existingPost.title;
+    existingPost.body = req.body.body ? req.body.body : existingPost.body;
+    existingPost.dateEdited = Date.now();
+    existingPost.published = req.body.published
+      ? req.body.published
+      : existingPost.published;
+    existingPost.save();
+    res.json({ updated: existingPost });
   } catch (err) {
     res.status(400).send(err);
   }
